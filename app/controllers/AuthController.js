@@ -61,8 +61,7 @@ module.exports.auth = async (req, res, next) => {
         _id: idUser,
       });
       if (checkAuth) {
-        req.data = checkAuth;
-        console.log(req.data.id);
+        req.data = checkAuth.role;
         next();
       } else {
         res.json("not permission");
@@ -76,7 +75,7 @@ module.exports.auth = async (req, res, next) => {
 };
 
 module.exports.checkrole = async (req, res, next) => {
-  var role = req.data.role;
+  var role = req.data;
   if (role == 1) {
     next();
   } else {

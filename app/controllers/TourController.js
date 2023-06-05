@@ -10,6 +10,18 @@ module.exports.showAll = async (req, res) => {
   }
 };
 
+module.exports.filterbyProvince = async (req, res) => {
+  var test = "Sapa";
+  var province = new RegExp(".*" + test + ".*");
+  try {
+    var tours = await TourModel.find({ name: province });
+    console.log();
+    res.json(tours);
+  } catch (error) {
+    res.status(500).json("lỗi server");
+  }
+};
+
 module.exports.show = async (req, res, next) => {
   var page = req.query.page;
   if (page) {
