@@ -4,12 +4,15 @@ const Schema = mongoose.Schema;
 const TourSchema = new Schema(
   {
     name: { type: String },
-    place: { type: String },
-    description: { type: String },
+    tourcode: { type: String },
+    time: { type: String },
+    vehicle: { type: String },
+    departurePoint: { type: String },
     highlightDestinations: { type: String },
-    prices: { type: Number },
+    originalPrice: { type: Number },
+    presentPrice: { type: Number },
     url: { type: String },
-    img: { type: String },
+    imgs: [{ type: String }],
   },
   {
     collection: "tours",
