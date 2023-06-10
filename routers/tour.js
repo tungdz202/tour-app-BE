@@ -6,6 +6,7 @@ const TourController = require("../app/controllers/TourController");
 router.get("/", TourController.show);
 router.get("/showall", TourController.showAll);
 router.get("/province", TourController.filterbyProvince);
+router.post("/exist", TourController.checkExist);
 router.post("/create", TourController.create);
 router.put("/update/:id", TourController.update);
 router.delete("/delete/:id", TourController.delete);

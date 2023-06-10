@@ -10,6 +10,22 @@ module.exports.showAll = async (req, res) => {
   }
 };
 
+module.exports.checkExist = async (req, res) => {
+  var tourcode = req;
+  console.log(tourcode);
+  let isExist = false;
+  try {
+    var tour = await TourModel.findOne({ tourcode: tourcode });
+    if (tour) {
+      return (isExist = true);
+    } else {
+      return (isExist = false);
+    }
+  } catch (error) {
+    res.status(500).json("lỗi server");
+  }
+};
+
 module.exports.filterbyProvince = async (req, res) => {
   var test = "Sapa";
   var province = new RegExp(".*" + test + ".*");
@@ -53,13 +69,20 @@ module.exports.show = async (req, res, next) => {
 };
 
 module.exports.create = async (req, res, next) => {
-  const formData = { ...req.body };
-  const tour = new TourModel(formData);
-  try {
-    tour.save();
-    res.json("thêm thành công");
-  } catch (error) {
-    res.status(500).json("lỗi server");
+  const newTour = { ...req.body.tour };
+  const respond = await this.checkExist(newTour.tourcode);
+  if (respond == false) {
+    const tour = new TourModel(newTour);
+    try {
+      tour.save();
+      res.json("thêm thành công");
+      console.log("thêm thành công: ", newTour.name);
+    } catch (error) {
+      res.status(500).json("lỗi server");
+    }
+  } else {
+    console.log("đã tồn tại: ", newTour.name);
+    res.json("đã tồn tại");
   }
 };
 
@@ -73,10 +96,13 @@ module.exports.update = async (req, res, next) => {
       { _id: id },
       {
         name: newTour.name,
-        place: newTour.place,
-        description: newTour.description,
+        tourcode: newTour.tourcode,
+        time: newTour.time,
+        vehicle: newTour.vehicle,
+        departurePoint: newTour.departurePoint,
         highlightDestinations: newTour.highlightDestinations,
-        prices: newTour.prices,
+        originalPrices: newTour.originalPrices,
+        presentPrices: newTour.presentPrices,
         url: newTour.url,
         img: newTour.img,
       }
