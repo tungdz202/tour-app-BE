@@ -5,11 +5,11 @@ const cmtRouter = require("./comment");
 const provinceRouter = require("./province");
 
 function route(app) {
-  app.use("/account", accountRouter);
-  app.use("/tour", tourRouter);
-  app.use("/blog", blogRouter);
-  app.use("/comment", cmtRouter);
-  app.use("/province", provinceRouter);
+  app.use("/api/account", accountRouter);
+  app.use("/api/tour", tourRouter);
+  app.use("/api/blog", blogRouter);
+  app.use("/api/comment", cmtRouter);
+  app.use("/api/province", provinceRouter);
 }
 
 module.exports = route;

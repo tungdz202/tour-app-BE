@@ -3,19 +3,18 @@ const ProvinceModel = require("../models/provinces");
 module.exports.show = async (req, res) => {
   try {
     var provinces = await ProvinceModel.find({});
-    for (i = 0; i < provinces.length; i++) {
-      var province = await provinces[i].populate("rate");
-      provinces[i] = province;
-    }
     res.json(provinces);
   } catch (error) {
-    res.status(500).json("lỗi server");
+    // res.status(500).json("lỗi server");
+    res.json(error);
   }
 };
 
 module.exports.create = async (req, res, next) => {
   const formData = { ...req.body };
   const province = new ProvinceModel(formData);
+  console.log(province);
+  console.log(formData);
   try {
     province.save();
     res.json("thêm thành công");

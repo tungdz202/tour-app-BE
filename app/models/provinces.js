@@ -4,7 +4,9 @@ const Schema = mongoose.Schema;
 const ProvinceSchema = new Schema(
   {
     name: { type: String },
+    img: { type: String },
     rate: [{ type: String, ref: "rate" }],
+    popularAttractions: [{ type: String }],
   },
   {
     collection: "provinces",

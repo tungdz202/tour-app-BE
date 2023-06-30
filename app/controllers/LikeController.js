@@ -3,10 +3,6 @@ const likeModel = require("../models/like");
 module.exports.show = async (req, res) => {
   try {
     var like = await likeModel.find({});
-    for (i = 0; i < like.length; i++) {
-      var like = await like[i].populate("rate");
-      like[i] = like;
-    }
     res.json(like);
   } catch (error) {
     res.status(500).json("lỗi server");

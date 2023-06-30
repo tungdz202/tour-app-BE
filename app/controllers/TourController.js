@@ -1,7 +1,16 @@
 const TourModel = require("../models/tours");
-const PAGE_SIZE = 5;
+var natural = require("natural");
+const PAGE_SIZE = 8;
 
 module.exports.showAll = async (req, res) => {
+  const string1 = "Hello, world!";
+  const string2 = "Hello, universe!";
+
+  const levenshteinDistance = natural.LevenshteinDistance(string1, string2);
+  const maxLen = Math.max(string1.length, string2.length);
+  const similarityRate = (maxLen - levenshteinDistance) / maxLen;
+  console.log(similarityRate);
+
   try {
     var tours = await TourModel.find({});
     res.json(tours);
@@ -12,7 +21,6 @@ module.exports.showAll = async (req, res) => {
 
 module.exports.checkExist = async (req, res) => {
   var tourcode = req;
-  console.log(tourcode);
   let isExist = false;
   try {
     var tour = await TourModel.findOne({ tourcode: tourcode });
@@ -27,11 +35,11 @@ module.exports.checkExist = async (req, res) => {
 };
 
 module.exports.filterbyProvince = async (req, res) => {
-  var test = "Sapa";
+  var test = req.body.province;
+  console.log(req.body.province);
   var province = new RegExp(".*" + test + ".*");
   try {
     var tours = await TourModel.find({ name: province });
-    console.log();
     res.json(tours);
   } catch (error) {
     res.status(500).json("lỗi server");
@@ -81,35 +89,42 @@ module.exports.create = async (req, res, next) => {
       res.status(500).json("lỗi server");
     }
   } else {
-    console.log("đã tồn tại: ", newTour.name);
-    res.json("đã tồn tại");
+    try {
+      const update = await this.update(newTour);
+      console.log("cập nhật thành công: " + update.name);
+      res.json("cập nhật thành công");
+    } catch (error) {
+      console.log(error);
+      res.json("lỗi server1");
+    }
   }
 };
 
 //update
 module.exports.update = async (req, res, next) => {
-  var id = req.params.id;
-  var newTour = { ...req.body };
-  console.log(newTour);
+  var tourcode = req.tourcode;
+  var newTour = { ...req };
   try {
-    var tour = await TourModel.findOneAndUpdate(
-      { _id: id },
+    const tour = await TourModel.findOneAndUpdate(
+      { tourcode: tourcode },
       {
         name: newTour.name,
-        tourcode: newTour.tourcode,
         time: newTour.time,
         vehicle: newTour.vehicle,
         departurePoint: newTour.departurePoint,
         highlightDestinations: newTour.highlightDestinations,
-        originalPrices: newTour.originalPrices,
-        presentPrices: newTour.presentPrices,
+        originalPrice: newTour.originalPrice,
+        presentPrice: newTour.presentPrice,
         url: newTour.url,
-        img: newTour.img,
+        imgs: newTour.imgs,
+      },
+      {
+        new: true,
       }
     );
-    res.json("cập nhật thành công");
+    return tour;
   } catch (error) {
-    res.json("không tìn thấy");
+    res.json("lỗi server2");
   }
 };
 
