@@ -1,16 +1,7 @@
 const TourModel = require("../models/tours");
-var natural = require("natural");
 const PAGE_SIZE = 8;
 
 module.exports.showAll = async (req, res) => {
-  const string1 = "Hello, world!";
-  const string2 = "Hello, universe!";
-
-  const levenshteinDistance = natural.LevenshteinDistance(string1, string2);
-  const maxLen = Math.max(string1.length, string2.length);
-  const similarityRate = (maxLen - levenshteinDistance) / maxLen;
-  console.log(similarityRate);
-
   try {
     var tours = await TourModel.find({});
     res.json(tours);

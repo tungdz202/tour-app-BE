@@ -13,6 +13,9 @@ const TourSchema = new Schema(
     presentPrice: { type: Number },
     url: { type: String },
     imgs: [{ type: String }],
+    schedules: [{ type: String }],
+    origin: { type: String },
+    touristAttraction: [{ type: String }],
   },
   {
     collection: "tours",

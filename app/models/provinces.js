@@ -5,7 +5,7 @@ const ProvinceSchema = new Schema(
   {
     name: { type: String },
     img: { type: String },
-    rate: [{ type: String, ref: "rate" }],
+    like: [{ type: String, ref: "like" }],
     popularAttractions: [{ type: String }],
   },
   {

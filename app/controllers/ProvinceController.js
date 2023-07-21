@@ -13,8 +13,6 @@ module.exports.show = async (req, res) => {
 module.exports.create = async (req, res, next) => {
   const formData = { ...req.body };
   const province = new ProvinceModel(formData);
-  console.log(province);
-  console.log(formData);
   try {
     province.save();
     res.json("thêm thành công");
