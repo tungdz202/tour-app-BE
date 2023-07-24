@@ -10,14 +10,34 @@ module.exports.show = async (req, res) => {
   }
 };
 
+module.exports.checkExist = async (req, res) => {
+  var province = req.name;
+  let isExist = false;
+  try {
+    var province = await ProvinceModel.findOne({ name: province });
+    if (province) {
+      return (isExist = true);
+    } else {
+      return (isExist = false);
+    }
+  } catch (error) {
+    res.status(500).json("lỗi server1");
+  }
+};
+
 module.exports.create = async (req, res, next) => {
   const formData = { ...req.body };
   const province = new ProvinceModel(formData);
-  try {
-    province.save();
-    res.json("thêm thành công");
-  } catch (error) {
-    res.status(500).json("lỗi server");
+  const respond = await this.checkExist(formData);
+  if (respond == false) {
+    try {
+      province.save();
+      res.json("thêm thành công");
+    } catch (error) {
+      res.status(500).json("lỗi server");
+    }
+  } else {
+    res.json("đã tồn tại tour");
   }
 };
 
