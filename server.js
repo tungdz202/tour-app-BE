@@ -6,6 +6,9 @@ var accountRouter = require("./routers/account");
 const route = require("./routers/index");
 var cookieParser = require("cookie-parser");
 const { cors } = require("./utils/CORS");
+require("dotenv").config();
+
+const port = process.env.PORT || 8888;
 
 var app = express();
 
@@ -27,6 +30,6 @@ app.get("/", (req, res, next) => {
   res.send("home");
 });
 
-app.listen(8888, () => {
+app.listen(port, () => {
   console.log(`Example app listening on port`);
 });
