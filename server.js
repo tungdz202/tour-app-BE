@@ -1,6 +1,5 @@
 const express = require("express");
 var bodyParser = require("body-parser");
-const AccountModel = require("./app/models/account");
 const db = require("./configs/db/index");
 var accountRouter = require("./routers/account");
 const route = require("./routers/index");
@@ -31,5 +30,5 @@ app.get("/", (req, res, next) => {
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening on port`);
+  console.log(`Kết nối thành công cổng: ${port}`);
 });
