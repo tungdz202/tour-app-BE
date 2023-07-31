@@ -4,6 +4,7 @@ const blogRouter = require("./blog");
 const cmtRouter = require("./comment");
 const provinceRouter = require("./province");
 const collectionRouter = require("./collection");
+const likeRouter = require("./like");
 
 function route(app) {
   app.use("/api/account", accountRouter);
@@ -12,6 +13,7 @@ function route(app) {
   app.use("/api/comment", cmtRouter);
   app.use("/api/province", provinceRouter);
   app.use("/api/collection", collectionRouter);
+  app.use("/api/like", likeRouter);
 }
 
 module.exports = route;

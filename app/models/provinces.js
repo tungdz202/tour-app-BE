@@ -7,6 +7,7 @@ const ProvinceSchema = new Schema(
     img: { type: String },
     like: [{ type: String, ref: "like" }],
     popularAttractions: [{ type: String }],
+    sumTour: { type: Number },
   },
   {
     collection: "provinces",

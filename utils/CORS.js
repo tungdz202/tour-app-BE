@@ -1,6 +1,13 @@
+require("dotenv").config();
+const ACCESSURL = process.env.ACCESSURL || "http://localhost:3000";
+
 module.exports.cors = (req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.header("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Access-Control-Allow-Origin", ACCESSURL);
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, PATCH, OPTIONS"
+  );
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   next();
 };

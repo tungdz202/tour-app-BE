@@ -74,3 +74,31 @@ module.exports.delete = async (req, res, next) => {
     res.status(500).json("xoá không thành công");
   }
 };
+
+module.exports.updateNumberTour = async (req, res) => {
+  var name = req.body.name;
+  var sumTour = req.body.sumTour;
+  console.log(req.body);
+  try {
+    await ProvinceModel.findOneAndUpdate(
+      { name: name },
+      {
+        sumTour: sumTour,
+      }
+    );
+    res.json("cập nhật thành công");
+  } catch (error) {
+    res.json("không tìm thấy");
+  }
+};
+
+module.exports.selectTopProvince = async (req, res) => {
+  try {
+    const province = await ProvinceModel.find({})
+      .sort({ sumTour: -1 })
+      .limit(4);
+    res.json(province);
+  } catch (error) {
+    res.json("không tìm thấy");
+  }
+};

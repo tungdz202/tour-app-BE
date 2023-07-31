@@ -10,6 +10,13 @@ module.exports.showAll = async (req, res) => {
   }
 };
 
+module.exports.getUserProfile = async (req, res) => {
+  var user = req.data;
+  if (user) {
+    res.json(user);
+  }
+};
+
 module.exports.show = async (req, res, next) => {
   var page = req.query.page;
   if (page) {
@@ -61,12 +68,67 @@ module.exports.update = async (req, res, next) => {
       {
         username: newAccount.username,
         password: newAccount.password,
-        role: newAccount.role,
+        phone: newAccount.phone,
+        avatar: newAccount.avatar,
+        email: newAccount.email,
+        address: newAccount.address,
+        historySeen: newAccount.historySeen,
       }
     );
     res.json("cập nhật thành công");
   } catch (error) {
     res.json("không tìn thấy");
+  }
+};
+
+module.exports.updateHistorySeen = async (req, res, next) => {
+  var id = req.data.id;
+  var tourSeen = req.body;
+  var newHistorySeen = [...req.data.historySeen];
+  let exit = false;
+  for (tour of newHistorySeen) {
+    if (tour) {
+      if (tour.url == tourSeen.url) exit = true;
+    }
+  }
+  if (!exit) {
+    newHistorySeen.push(tourSeen);
+    if (newHistorySeen.length > 20) {
+      newHistorySeen.shift();
+    }
+  }
+  console.log(newHistorySeen);
+  try {
+    var account = await AccountModel.findOneAndUpdate(
+      { _id: id },
+      {
+        historySeen: newHistorySeen,
+      }
+    );
+    res.json("cập nhật thành công");
+  } catch (error) {
+    res.json("cập nhật thất bại");
+  }
+};
+
+module.exports.changePassword = async (req, res) => {
+  var id = req.data.id;
+  var oldpassWord = req.body.oldpassword;
+  var newpassword = req.body.newpassword;
+  if (req.data.password != oldpassWord) {
+    res.json("Sai mật khẩu");
+  } else {
+    try {
+      var account = await AccountModel.findOneAndUpdate(
+        { _id: id },
+        {
+          password: newpassword,
+        }
+      );
+      res.json("cập nhật thành công");
+    } catch (error) {
+      res.json("cập nhật thất bại");
+    }
   }
 };
 

@@ -6,7 +6,6 @@ module.exports.show = async (req, res) => {
     var collections = await CollectionModel.find({});
     res.json(collections);
   } catch (error) {
-    // res.status(500).json("lỗi server");
     res.json(error);
   }
 };
