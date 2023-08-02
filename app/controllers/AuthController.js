@@ -7,11 +7,28 @@ const SECRET_KEY = process.env.SECRET_KEY || null;
 module.exports.register = async (req, res, next) => {
   var username = req.body.username;
   var password = req.body.password;
-  var avatar = req.body.avatar;
+  var address = req.body.address;
+  var phone = req.body.phone;
+  var email = req.body.email;
+  if (!username) {
+    return res.json("Chưa nhập username!");
+  }
+  if (!password) {
+    return res.json("Chưa nhập password!");
+  }
+  if (!address) {
+    return res.json("Chưa nhập địa chỉ!");
+  }
+  if (!phone) {
+    return res.json("Chưa nhập số điện thoại!");
+  }
+  if (!email) {
+    return res.json("Chưa nhập email!");
+  }
 
   try {
     var account = await AccountModel.findOne({
-      username: username,
+      email: email,
     });
     if (account) {
       res.json("Tài khoản đã tồn tại");
@@ -19,10 +36,12 @@ module.exports.register = async (req, res, next) => {
       await AccountModel.create({
         username: username,
         password: password,
-        avatar: avatar,
+        email: email,
+        phone: phone,
+        address: address,
         role: 1,
       });
-      res.json("Tạo tài khoản thành công");
+      res.json("Register Successfully");
     }
   } catch (error) {
     res.json("Tạo tài khoản thất bại");
@@ -30,23 +49,23 @@ module.exports.register = async (req, res, next) => {
 };
 
 module.exports.login = async (req, res, next) => {
-  var username = req.body.username;
+  var email = req.body.email;
   var password = req.body.password;
-  if (!username && !password) {
-    return res.json("Hãy nhập tài khoản mật khẩu!");
+  if (!email && !password) {
+    return res.json("Hãy nhập email và mật khẩu!");
   }
-  if (!username) {
-    return res.json("Chưa nhập username!");
+  if (!email) {
+    return res.json("Chưa nhập email!");
   }
   if (!password) {
     return res.json("Chưa nhập password!");
   }
   try {
     var account = await AccountModel.findOne({
-      username: username,
+      email: email,
     });
     if (!account) {
-      return res.json("Sai tài khoản!");
+      return res.json("không tồn tại email!");
     }
     if (password != account.password) {
       return res.json("Sai mật khẩu!");
