@@ -14,7 +14,7 @@ module.exports.register = async (req, res, next) => {
       username: username,
     });
     if (account) {
-      res.json("tài khoản đã tồn tại");
+      res.json("Tài khoản đã tồn tại");
     } else {
       await AccountModel.create({
         username: username,
@@ -22,10 +22,10 @@ module.exports.register = async (req, res, next) => {
         avatar: avatar,
         role: 1,
       });
-      res.json("tạo tài khoản thành công");
+      res.json("Tạo tài khoản thành công");
     }
   } catch (error) {
-    res.json("tạo tài khoản thất bại");
+    res.json("Tạo tài khoản thất bại");
   }
 };
 
@@ -33,23 +33,23 @@ module.exports.login = async (req, res, next) => {
   var username = req.body.username;
   var password = req.body.password;
   if (!username && !password) {
-    return res.status(404).json("hãy nhập đăng nhập!");
+    return res.json("Hãy nhập tài khoản mật khẩu!");
   }
   if (!username) {
-    return res.status(404).json("chưa nhập username!");
+    return res.json("Chưa nhập username!");
   }
   if (!password) {
-    return res.status(404).json("chưa nhập password!");
+    return res.json("Chưa nhập password!");
   }
   try {
     var account = await AccountModel.findOne({
       username: username,
     });
     if (!account) {
-      return res.status(404).json("Wrong username!");
+      return res.json("Sai tài khoản!");
     }
     if (password != account.password) {
-      return res.status(404).json("Wrong password!");
+      return res.json("Sai mật khẩu!");
     }
 
     if (account && password == account.password) {

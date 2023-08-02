@@ -102,3 +102,15 @@ module.exports.selectTopProvince = async (req, res) => {
     res.json("không tìm thấy");
   }
 };
+
+module.exports.searchProvince = async (req, res) => {
+  var test = req.body.province;
+  console.log(req.body.province);
+  var province = new RegExp(".*" + test + ".*");
+  try {
+    var province = await ProvinceModel.find({ name: province });
+    res.json(province);
+  } catch (error) {
+    res.status(500).json("lỗi server");
+  }
+};

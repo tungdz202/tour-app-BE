@@ -1,5 +1,6 @@
 const { default: axios } = require("axios");
 const cheerio = require("cheerio");
+
 //lấy list url của tour du lịch
 const getUrl = async () => {
   let i = 0;
@@ -28,7 +29,7 @@ const getUrl = async () => {
   return tourLinks;
 };
 
-// getUrl();
+getUrl();
 
 const getlink = async () => {
   try {

@@ -7,7 +7,6 @@ const BlogSchema = new Schema(
     description: { type: String },
     url: { type: String },
     img: { type: String },
-    comments: [{ type: String, ref: "comments" }],
   },
   {
     collection: "blogs",
