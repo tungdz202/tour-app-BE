@@ -29,8 +29,6 @@ const getUrl = async () => {
   return tourLinks;
 };
 
-getUrl();
-
 const getlink = async () => {
   try {
     const links = await getUrl();

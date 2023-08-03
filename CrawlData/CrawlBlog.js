@@ -1,7 +1,7 @@
 const { default: axios } = require("axios");
 const cheerio = require("cheerio");
 
-const getBlog = async () => {
+module.exports.getBlog = async () => {
   baseURL = "https://www.vietnambooking.com/du-lich/blog-du-lich";
   const respond = await axios.get(baseURL);
   const $ = cheerio.load(respond.data);
@@ -31,7 +31,6 @@ const getBlog = async () => {
     }
   }
 };
-getBlog();
 
 const uploadToDB = async (blog) => {
   try {

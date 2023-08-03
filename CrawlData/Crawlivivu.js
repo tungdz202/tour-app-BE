@@ -62,7 +62,7 @@ const getUrl = async () => {
 };
 // getUrl();
 
-const getlistTour = async () => {
+module.exports.getlistTour = async () => {
   try {
     const links = await getUrl();
     for (const link of links) {
@@ -79,7 +79,6 @@ const getlistTour = async () => {
     console.log(error);
   }
 };
-getlistTour();
 
 //lấy thông tin chi tiết tour du lịch theo url
 const getTourDetail = async (url, price) => {

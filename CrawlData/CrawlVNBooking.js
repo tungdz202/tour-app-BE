@@ -21,7 +21,7 @@ const getUrl = async () => {
   return tourLinks;
 };
 
-const getlink = async () => {
+module.exports.getlink = async () => {
   try {
     const links = await getUrl();
     for (const link of links) {
@@ -36,7 +36,6 @@ const getlink = async () => {
     console.log(error);
   }
 };
-getlink();
 
 //lấy thông tin chi tiết tour du lịch theo url
 const getTourDetail = async (url) => {

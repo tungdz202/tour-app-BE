@@ -67,10 +67,8 @@ module.exports.update = async (req, res, next) => {
       { _id: id },
       {
         username: newAccount.username,
-        password: newAccount.password,
         phone: newAccount.phone,
         avatar: newAccount.avatar,
-        email: newAccount.email,
         address: newAccount.address,
         historySeen: newAccount.historySeen,
       }
@@ -115,6 +113,17 @@ module.exports.changePassword = async (req, res) => {
   var id = req.data.id;
   var oldpassWord = req.body.oldpassword;
   var newpassword = req.body.newpassword;
+
+  if (!oldpassWord && !newpassword) {
+    return res.json("Chưa nhập mật khẩu");
+  }
+
+  if (!oldpassWord) {
+    return res.json("Chưa nhập mật khẩu cũ");
+  }
+  if (!newpassword) {
+    return res.json("Chưa nhập mật khẩu mới");
+  }
   if (req.data.password != oldpassWord) {
     res.json("Sai mật khẩu");
   } else {
