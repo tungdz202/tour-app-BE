@@ -62,6 +62,18 @@ module.exports.create = async (req, res, next) => {
 module.exports.update = async (req, res, next) => {
   var id = req.data.id;
   var newAccount = { ...req.body };
+  var username = req.body.username;
+  var phone = req.body.phone;
+  var address = req.body.address;
+  if (!username) {
+    return res.json("Hãy nhập tài khoản");
+  }
+  if (!phone) {
+    return res.json("Chưa nhập email");
+  }
+  if (!address) {
+    return res.json("Chưa nhập password");
+  }
   try {
     var account = await AccountModel.findOneAndUpdate(
       { _id: id },

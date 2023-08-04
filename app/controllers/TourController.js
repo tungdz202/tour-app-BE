@@ -28,9 +28,9 @@ module.exports.checkExist = async (req, res) => {
 module.exports.filterbyProvince = async (req, res) => {
   var test = req.body.province;
   console.log(req.body.province);
-  var province = new RegExp(".*" + test + ".*");
+  var province = new RegExp(".*" + test + ".*", "i");
   try {
-    var tours = await TourModel.find({ name: province });
+    var tours = await TourModel.find({ name: { $regex: province } });
     res.json(tours);
   } catch (error) {
     res.status(500).json("lỗi server");

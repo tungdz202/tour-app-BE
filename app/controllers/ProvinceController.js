@@ -106,9 +106,9 @@ module.exports.selectTopProvince = async (req, res) => {
 module.exports.searchProvince = async (req, res) => {
   var test = req.body.province;
   console.log(req.body.province);
-  var province = new RegExp(".*" + test + ".*");
+  var province = new RegExp(".*" + test + ".*", "i");
   try {
-    var province = await ProvinceModel.find({ name: province });
+    var province = await ProvinceModel.find({ name: { $regex: province } });
     res.json(province);
   } catch (error) {
     res.status(500).json("lỗi server");

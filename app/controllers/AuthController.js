@@ -52,13 +52,13 @@ module.exports.login = async (req, res, next) => {
   var email = req.body.email;
   var password = req.body.password;
   if (!email && !password) {
-    return res.json("Hãy nhập email và mật khẩu!");
+    return res.json("Hãy nhập email và mật khẩu");
   }
   if (!email) {
-    return res.json("Chưa nhập email!");
+    return res.json("Chưa nhập email");
   }
   if (!password) {
-    return res.json("Chưa nhập password!");
+    return res.json("Chưa nhập password");
   }
   try {
     var account = await AccountModel.findOne({
