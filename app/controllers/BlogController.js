@@ -82,11 +82,12 @@ module.exports.checkExist = async (req, res) => {
 
 //update
 module.exports.update = async (req, res, next) => {
-  var name = req.name;
-  var newblog = { ...req };
+  console.log(req.body._id);
+  var id = req.body._id;
+  var newblog = { ...req.body };
   try {
     var blog = await BlogModel.findOneAndUpdate(
-      { name: name },
+      { _id: id },
       {
         name: newblog.name,
         description: newblog.description,
@@ -97,7 +98,7 @@ module.exports.update = async (req, res, next) => {
         new: true,
       }
     );
-    return blog;
+    res.json("cập nhật thành công");
   } catch (error) {
     res.json("không tìn thấy");
   }

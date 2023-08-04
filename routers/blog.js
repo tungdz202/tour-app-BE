@@ -7,8 +7,8 @@ const BlogGetData = require("../CrawlData/Index");
 router.get("/", BlogController.showAll);
 router.get("/show", BlogController.show);
 router.post("/create", BlogController.create);
-router.put("/update/:id", BlogController.update);
+router.put("/update", BlogController.update);
 router.delete("/delete/:id", BlogController.delete);
-router.post("/getBlog", BlogGetData.getBlog);
+router.post("/CrawlBlog", BlogGetData.getBlog);
 
 module.exports = router;

@@ -79,3 +79,16 @@ module.exports.delete = async (req, res, next) => {
     res.status(500).json("xoá không thành công");
   }
 };
+
+module.exports.deleteTour = async (req, res, next) => {
+  var id = req.params.id;
+  console.log(req.params);
+  try {
+    var del = await TourModel.deleteOne({
+      _id: id,
+    });
+    res.json("xoá thành công");
+  } catch (error) {
+    res.status(500).json("xoá không thành công");
+  }
+};

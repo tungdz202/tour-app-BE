@@ -43,22 +43,31 @@ module.exports.create = async (req, res, next) => {
 
 //update
 module.exports.update = async (req, res, next) => {
+  console.log(req.body);
   var id = req.params.id;
   var newProvince = { ...req.body };
-  console.log(newProvince);
   try {
-    var province = await ProvinceModel.findOneAndUpdate(
-      { _id: id },
-      {
-        name: newProvince.name,
-        description: newProvince.description,
-        url: newProvince.url,
-        img: newProvince.img,
+    var exist = await ProvinceModel.findOne({ name: newProvince.name });
+    if (exist && id !== exist._id) {
+      return res.json("Trùng tên tỉnh thành");
+    } else {
+      try {
+        var province = await ProvinceModel.findOneAndUpdate(
+          { _id: id },
+          {
+            name: newProvince.name,
+            like: newProvince.like,
+            popularAttractions: newProvince.popularAttractions,
+            img: newProvince.img,
+          }
+        );
+        res.json("cập nhật thành công");
+      } catch (error) {
+        res.json("không tìn thấy");
       }
-    );
-    res.json("cập nhật thành công");
+    }
   } catch (error) {
-    res.json("không tìn thấy");
+    res.json("lỗi");
   }
 };
 
