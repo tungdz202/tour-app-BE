@@ -42,5 +42,3 @@ const getAllSumtour = async () => {
     console.log(res.data);
   }
 };
-
-getAllSumtour();

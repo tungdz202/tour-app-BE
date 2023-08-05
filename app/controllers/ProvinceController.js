@@ -44,11 +44,13 @@ module.exports.create = async (req, res, next) => {
 //update
 module.exports.update = async (req, res, next) => {
   console.log(req.body);
+  console.log(req.params.id);
   var id = req.params.id;
   var newProvince = { ...req.body };
   try {
     var exist = await ProvinceModel.findOne({ name: newProvince.name });
-    if (exist && id !== exist._id) {
+    if (exist && id != exist._id) {
+      console.log(exist);
       return res.json("Trùng tên tỉnh thành");
     } else {
       try {
