@@ -66,6 +66,7 @@ async function addorupdate(tour) {
     url: tour.url,
     imgs: tour.imgs,
     origin: tour.origin,
+    touristAttraction: tour.touristAttraction,
   };
   listTour.push(newTour);
   const collections = await getCollection();

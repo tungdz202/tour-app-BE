@@ -118,6 +118,7 @@ module.exports.update = async (req, res, next) => {
         presentPrice: newTour.presentPrice,
         url: newTour.url,
         imgs: newTour.imgs,
+        touristAttraction: newTour.touristAttraction,
       },
       {
         new: true,

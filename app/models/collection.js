@@ -19,6 +19,7 @@ const CollectionSchema = new Schema(
         url: { type: String },
         imgs: [{ type: String }],
         origin: { type: String },
+        touristAttraction: [{ type: String }],
       },
     ],
   },

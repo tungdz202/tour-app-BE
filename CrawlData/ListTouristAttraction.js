@@ -3,9 +3,7 @@ const { default: axios } = require("axios");
 //lấy thông tin các địa điểm du lịch theo từng tỉnh thành
 const getAllProvince = async () => {
   try {
-    const respond = await axios.get(
-      "http://localhost:8888/api/province/showall"
-    );
+    const respond = await axios.get("http://localhost:8888/api/province");
     return respond.data;
   } catch (error) {
     console.log("không thành công");
@@ -13,21 +11,63 @@ const getAllProvince = async () => {
 };
 
 //Lấy thông tin các tour theo từng tỉnh thành
-const getTourbyProvince = async (province) => {
+const getAllTour = async () => {
   try {
-    const respond = await axios.get("http://localhost:8888/api/tour/province", {
-      province: province,
-    });
+    const respond = await axios.get("http://localhost:8888/api/tour/showall");
     return respond.data;
   } catch (error) {
     console.log("không thành công");
   }
 };
 
-//check thông xem thông tin du lịch đã tồn tại hay chưa
-const checkExist = (place, highlightDestinations) => {
-  return highlightDestinations.include(place);
+const getListTouristAttraction = async () => {
+  const provinces = await getAllProvince();
+  let listPopularAttractions = [];
+  for (const province of provinces) {
+    if (province.popularAttractions.length > 0) {
+      for (const populateAttraction of province.popularAttractions) {
+        listPopularAttractions.push(populateAttraction);
+      }
+    }
+  }
+  return listPopularAttractions;
 };
+
+const addTouristAttractiontoTour = async () => {
+  const listTouristaAttractions = await getListTouristAttraction();
+  const listTour = await getAllTour();
+  for (let tour of listTour) {
+    const newTouristAttraction = checkTouristaAttractions(
+      tour.highlightDestinations,
+      listTouristaAttractions
+    );
+    tour.touristAttraction = newTouristAttraction;
+    await uploadToDB(tour);
+  }
+
+  console.log("thêm thành công");
+};
+
+addTouristAttractiontoTour();
+
+const checkTouristaAttractions = (
+  highlightDestinations,
+  listTouristaAttractions
+) => {
+  const foundTouristaAttractions = [];
+  for (const TouristaAttraction of listTouristaAttractions) {
+    if (
+      highlightDestinations
+        .toLowerCase()
+        .includes(TouristaAttraction.toLowerCase())
+    ) {
+      foundTouristaAttractions.push(TouristaAttraction);
+    }
+  }
+  return foundTouristaAttractions;
+};
+
+// getListTouristAttraction();
 
 const uploadToDB = async (tour) => {
   try {
@@ -43,10 +83,10 @@ const uploadToDB = async (tour) => {
 };
 
 const addTouristAttraction = async () => {
-  const provinces = getAllProvince();
+  const provinces = await getAllProvince();
   for (const province of provinces) {
     const listPlaces = province.TouristAttrations;
-    const tours = getTourbyProvince();
+    const tours = await getTourbyProvince();
     if (tours) {
       for (const place of listPlaces) {
         for (let tour of tours) {

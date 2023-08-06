@@ -42,3 +42,23 @@ const getAllSumtour = async () => {
     console.log(res.data);
   }
 };
+
+getAllSumtour();
+
+function checkTourDescription(tourDescription, listOfProvinces) {
+  const foundProvinces = [];
+  for (const province of listOfProvinces) {
+    if (tourDescription.toLowerCase().includes(province.toLowerCase())) {
+      foundProvinces.push(province);
+    }
+  }
+  return foundProvinces;
+}
+
+// Ví dụ:
+// const tourDescription =
+//   "Hôm nay chúng ta sẽ đến Hà Nội, hạ long và huế trong hành trình du lịch!";
+// const listOfProvinces = ["Hà Nội", "Hạ Long", "Huế", "Đà Nẵng", "Sài Gòn"];
+
+// const foundProvinces = checkTourDescription(tourDescription, listOfProvinces);
+// console.log(foundProvinces);
