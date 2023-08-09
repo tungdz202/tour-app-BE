@@ -23,8 +23,8 @@ module.exports.create = async (req, res) => {
 };
 
 module.exports.filterbyProvince = async (req, res) => {
-  var test = req.body.province;
-  console.log(req.body.province);
+  var test = req.body.province.name;
+  console.log(req.body.province.name);
   var province = new RegExp(".*" + test + ".*");
   try {
     var collections = await CollectionModel.find({ name: province });

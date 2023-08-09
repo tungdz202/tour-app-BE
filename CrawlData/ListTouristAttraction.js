@@ -20,6 +20,7 @@ const getAllTour = async () => {
   }
 };
 
+//lấy danh sách các địa điểm nổi tiếng
 const getListTouristAttraction = async () => {
   const provinces = await getAllProvince();
   let listPopularAttractions = [];
@@ -31,6 +32,24 @@ const getListTouristAttraction = async () => {
     }
   }
   return listPopularAttractions;
+};
+
+// lấy thông tin các địa điểm nổi tiếng có trong tour
+const checkTouristaAttractions = (
+  highlightDestinations,
+  listTouristaAttractions
+) => {
+  const foundTouristaAttractions = [];
+  for (const TouristaAttraction of listTouristaAttractions) {
+    if (
+      highlightDestinations
+        .toLowerCase()
+        .includes(TouristaAttraction.toLowerCase())
+    ) {
+      foundTouristaAttractions.push(TouristaAttraction);
+    }
+  }
+  return foundTouristaAttractions;
 };
 
 const addTouristAttractiontoTour = async () => {
@@ -49,23 +68,6 @@ const addTouristAttractiontoTour = async () => {
 };
 
 addTouristAttractiontoTour();
-
-const checkTouristaAttractions = (
-  highlightDestinations,
-  listTouristaAttractions
-) => {
-  const foundTouristaAttractions = [];
-  for (const TouristaAttraction of listTouristaAttractions) {
-    if (
-      highlightDestinations
-        .toLowerCase()
-        .includes(TouristaAttraction.toLowerCase())
-    ) {
-      foundTouristaAttractions.push(TouristaAttraction);
-    }
-  }
-  return foundTouristaAttractions;
-};
 
 // getListTouristAttraction();
 

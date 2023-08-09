@@ -2,7 +2,7 @@ const ProvinceModel = require("../models/provinces");
 
 module.exports.show = async (req, res) => {
   try {
-    var provinces = await ProvinceModel.find({});
+    var provinces = await ProvinceModel.find({}).sort({ sumTour: -1 });
     res.json(provinces);
   } catch (error) {
     // res.status(500).json("lỗi server");
