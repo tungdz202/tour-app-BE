@@ -43,12 +43,16 @@ const checkTouristaAttractions = (
   for (const TouristaAttraction of listTouristaAttractions) {
     if (
       highlightDestinations
+        .replace(/,+/, ",")
+        .replace(/,\s+/g, ",")
+        .replace(/^\s+|\s+$/g, "")
         .toLowerCase()
         .includes(TouristaAttraction.toLowerCase())
     ) {
       foundTouristaAttractions.push(TouristaAttraction);
     }
   }
+
   return foundTouristaAttractions;
 };
 
@@ -61,6 +65,7 @@ const addTouristAttractiontoTour = async () => {
       listTouristaAttractions
     );
     tour.touristAttraction = newTouristAttraction;
+    console.log(tour.touristAttraction);
     await uploadToDB(tour);
   }
 
