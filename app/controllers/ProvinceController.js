@@ -125,3 +125,20 @@ module.exports.searchProvince = async (req, res) => {
     res.status(500).json("lỗi server");
   }
 };
+
+module.exports.likeProvince = async (req, res) => {
+  var name = req.body.name;
+  var like = req.body.like;
+  console.log(req.body);
+  try {
+    await ProvinceModel.findOneAndUpdate(
+      { name: name },
+      {
+        like: like,
+      }
+    );
+    res.json("like thành công");
+  } catch (error) {
+    res.json("không thành công");
+  }
+};

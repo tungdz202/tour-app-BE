@@ -10,5 +10,6 @@ router.put("/update/:id", ProvinceController.update);
 router.put("/addSumTour", ProvinceController.updateNumberTour);
 router.get("/topProvince", ProvinceController.selectTopProvince);
 router.delete("/delete/:id", ProvinceController.delete);
+router.put("/likeProvince", ProvinceController.likeProvince);
 
 module.exports = router;

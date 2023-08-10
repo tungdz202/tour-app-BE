@@ -46,7 +46,7 @@ const getTourDetail = async (url) => {
   const $ = cheerio.load(respond.data);
   if ($) {
     const name = $(".single-box-content-inner h1").text();
-    const schedules = $(".panel .panel-collapse .panel-body h3").each(
+    const schedules = $(".panel .panel-collapse .panel-body:eq(0) ").each(
       (index, el) => {
         const schedule = $(el).find("strong").text();
         highlightDestination.push(schedule);
@@ -112,7 +112,7 @@ const getTourDetail = async (url) => {
 };
 
 // getTourDetail(
-//   "https://www.vietnambooking.com/du-lich/tour-di-dai-loan-tu-da-nang.html"
+//   "https://www.vietnambooking.com/du-lich/tour-du-lich-da-nang-hoi-an-hue-quang-binh-5-ngay-4-dem.html"
 // );
 // const tourTest = {
 //   name: "Tour Quy Nhơn – Phú Yên 4 ngày 3 đêm | Lãng mạn xứ Hoa vàng cỏ xanh",
