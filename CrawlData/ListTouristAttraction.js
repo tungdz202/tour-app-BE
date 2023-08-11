@@ -56,7 +56,7 @@ const checkTouristaAttractions = (
   return foundTouristaAttractions;
 };
 
-const addTouristAttractiontoTour = async () => {
+module.exports.addTouristAttractiontoTour = async () => {
   const listTouristaAttractions = await getListTouristAttraction();
   const listTour = await getAllTour();
   for (let tour of listTour) {
@@ -71,8 +71,6 @@ const addTouristAttractiontoTour = async () => {
 
   console.log("thêm thành công");
 };
-
-addTouristAttractiontoTour();
 
 // getListTouristAttraction();
 

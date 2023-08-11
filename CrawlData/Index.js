@@ -2,6 +2,8 @@ const CrawlDataVNBooking = require("../CrawlData/CrawlVNBooking");
 const CrawlDataVNIVIVU = require("../CrawlData/Crawlivivu");
 const CrawlDataBlog = require("../CrawlData/CrawlBlog");
 const UpdateCollection = require("../CrawlData/Collection");
+const UpdateSumTour = require("../CrawlData/test");
+const UpdateTouristAttraction = require("../CrawlData/ListTouristAttraction");
 
 module.exports.getTourData = async (req, res) => {
   try {
@@ -11,6 +13,18 @@ module.exports.getTourData = async (req, res) => {
   }
   try {
     await CrawlDataVNIVIVU.getlistTour();
+  } catch (error) {
+    console.log(error);
+  }
+
+  try {
+    await UpdateTouristAttraction.addTouristAttractiontoTour();
+  } catch (error) {
+    console.log(error);
+  }
+
+  try {
+    await UpdateSumTour.getAllSumtour();
   } catch (error) {
     console.log(error);
   }

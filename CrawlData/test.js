@@ -31,7 +31,7 @@ const getSumtour = async (province) => {
   }
 };
 
-const getAllSumtour = async () => {
+module.exports.getAllSumtour = async () => {
   const listProvince = await getListProvince();
   for (province of listProvince) {
     const sum = await getSumtour(province);
@@ -42,8 +42,6 @@ const getAllSumtour = async () => {
     console.log(res.data);
   }
 };
-
-getAllSumtour();
 
 function checkTourDescription(tourDescription, listOfProvinces) {
   const foundProvinces = [];
